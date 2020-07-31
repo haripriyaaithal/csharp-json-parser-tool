@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C# JSON Parser</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+      .column {
+        float: left;
+        width: 47vw;
+        height: 80vh;
+        padding: 16px;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .button {
+        padding: 8px;
+        margin-right: 100px;
+      }
+
+      #json-input {
+        width: 85%;
+        height: 85%;
+        align-content: center;
+      }
+
+      #result {
+        padding-bottom: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div>
+        <fieldset>
+          <legend>Getters</legend>
+          <label>Access modifier</label>
+          <select id="getter-access-modifier">
+            <option>public</option>
+            <option>internal</option>
+            <option>protected</option>
+            <option>private</option>
+          </select>
+          <label>
+            <input type="radio" name="get-method-type" value="lambda" checked />
+            Generate lambda functions
+          </label>
+          <label>
+            <input type="radio" name="get-method-type" value="normal-methods" />
+            Generate normal methods
+          </label>
+        </fieldset>
+      </div>
+      <div class="column">
+        <textarea type="textbox" id="json-input"></textarea>
+        <div class="center">
+          <button id="submit" class="button">Generate C# classes</button>
+        </div>
+      </div>
+      <div class="column">
+        <pre id="result"></pre>
+      </div>
+      <script src="app.js"></script>
+    </div>
+  </body>
+</html>
