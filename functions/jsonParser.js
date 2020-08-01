@@ -67,14 +67,14 @@ const extractObjects = (obj, classId) => {
             );
           extractObjects(obj[key][0], newClassId);
         }
-      } else if (obj[key] === null) {
-        // If the value is null, consider its data type as object
+      } else if (obj[key] === null || Object.keys(obj[key]).length <= 0) {
+        // If the value is null or empty, consider its data type as object
         let varDeclaration =
           cSharp.getJsonPropertyString(key) +
           cSharp.getSpace() +
           cSharp.declareVariable(
             variableAccessModifier,
-            {},
+            cSharp.getDataType({}),
             variablePrefix + stringFormatter.formatCamelCase(key)
           );
         classesMap.get(classId).push(varDeclaration);
@@ -167,6 +167,7 @@ const generateCSharpCode = () => {
 
   classesMap.clear();
   methodsMap.clear();
+  cSharp.resetFormatting();
   return csharpCode;
 };
 
@@ -175,6 +176,8 @@ const parseJSON = (json, codeConfig) => {
   getMethodType = codeConfig.methodType.get; 
   getterAccessModifier = codeConfig.accessModifiers.get; 
  
+  cSharp.initialise(codeConfig);
+
   // If array is given as input
   if (json.trim().charAt(0) === "[") {
     let updatedJson = `{ "data":` + json;

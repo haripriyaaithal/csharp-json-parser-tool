@@ -20,6 +20,7 @@ document.querySelector("#submit").addEventListener("click", () => {
           methodType: {
             get: document.querySelector('input[name="get-method-type"]:checked').value,
           },
+          newLine: document.querySelector("#new-line").checked
         },
       }),
       headers: {
