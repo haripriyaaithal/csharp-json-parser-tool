@@ -1,7 +1,7 @@
 let codeSettings;
 
 const classKeyword = "class";
-const systemSerializableKeyword = "[System.Serializable]";
+let systemSerializableKeyword = "[System.Serializable]";
 const privateAccessModifier = "private";
 const internalAccessModifier = "internal";
 const publicAccessModifier = "public";
@@ -152,10 +152,14 @@ const createMethod = (methodType, accessModifier, returnType, methodName, variab
 
 const resetFormatting = () => {
   openCurlyBrace = "{";
+  systemSerializableKeyword = "[System.Serializable]";
 }
 
 const initialise = (codeConfig) => {
   codeSettings = codeConfig;
+  if (!codeSettings.serializable) {
+    systemSerializableKeyword = "";
+  }
 }
 
 module.exports = { 

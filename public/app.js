@@ -21,7 +21,8 @@ document.querySelector("#submit").addEventListener("click", () => {
             get: document.querySelector('input[name="get-method-type"]:checked').value,
           },
           newLine: document.querySelector("#new-line").checked,
-          variablePrefix: document.querySelector("#variablePrefix").value
+          variablePrefix: document.querySelector("#variablePrefix").value,
+          serializable: document.querySelector("#serializable").checked
         },
       }),
       headers: {
