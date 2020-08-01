@@ -57,11 +57,17 @@
             <input type="radio" name="get-method-type" value="normal-methods" />
             Generate normal methods
           </label>
-          <label>
-            <input type="checkbox" id="new-line" />
-            New line before "{"
-          </label>
         </fieldset>
+        <label>
+          <input type="checkbox" id="new-line" />
+          New line before "{"
+        </label>
+        <label>Private variable prefix</label>
+        <select id="variablePrefix">
+          <option value="_">Underscore</option>
+          <option value="m_">m Underscore</option>
+          <option value="">None</option>
+        </select>
       </div>
       <div class="column">
         <textarea type="textbox" id="json-input"></textarea>
