@@ -2,6 +2,10 @@ const input = document.querySelector("#json-input");
 const result = document.querySelector("#result");
 
 document.querySelector("#submit").addEventListener("click", () => {
+  getCSharpCode();
+});
+
+function getCSharpCode() {
   result.innerHTML = "Loading...";
   try {
     let json = input.value;
@@ -39,11 +43,11 @@ document.querySelector("#submit").addEventListener("click", () => {
         window.getSelection().removeAllRanges();
         range.selectNode(result);
         window.getSelection().addRange(range);
-        document.execCommand('copy');
+        document.execCommand("copy");
         window.getSelection().removeAllRanges();
       });
   } catch (e) {
     result.innerHTML = "Please enter valid JSON";
     console.log(e);
   }
-});
+}
