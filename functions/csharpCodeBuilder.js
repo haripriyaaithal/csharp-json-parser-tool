@@ -114,6 +114,38 @@ const declareLambdaFunction = (accessModifier, returnType, methodName, variableN
   );
 };
 
+const declareGetSet = (accessModifier, returnType, propertyName) => {
+  let extraTab = codeSettings.newLine ? newLine + tab : " ";
+  let getSet = 
+    tab +
+    accessModifier +
+    space +
+    returnType +
+    space +
+    propertyName.slice(codeSettings.variablePrefix.length).charAt(0).toUpperCase() +
+    propertyName.slice(codeSettings.variablePrefix.length + 1) +
+    `${extraTab}${openCurlyBrace} ${newLine} ${tab} get { return ${propertyName}; } ${newLine} ${tab} set { ${propertyName} = value; } ${newLine}${tab}}` +
+    newLine + 
+    newLine;
+    return getSet;
+};
+
+const declareGet = (accessModifier, returnType, propertyName) => {
+  let extraTab = codeSettings.newLine ? newLine + tab : " ";
+  let get =
+    tab +
+    accessModifier +
+    space +
+    returnType +
+    space +
+    propertyName.slice(codeSettings.variablePrefix.length).charAt(0).toUpperCase() +
+    propertyName.slice(codeSettings.variablePrefix.length + 1) +
+    `${extraTab}${openCurlyBrace} ${newLine} ${tab} get { return ${propertyName}; } ${newLine}${tab}}` +
+    newLine +
+    newLine;
+    return get;
+};
+
 const declareVariable = (accessModifier, dataType, variableName) => {
   console.log(accessModifier, " : " , "| Data: ", dataType, "| DataType: ", getDataType(dataType), "| Name", variableName)
   return (
@@ -147,6 +179,12 @@ const createMethod = (methodType, accessModifier, returnType, methodName, variab
       return declareLambdaFunction(accessModifier, returnType, methodName, variableName);
     case "normal-methods":
       return declareMethod(accessModifier, returnType, methodName, variableName);
+    case "get":
+      return declareGet(accessModifier, returnType, variableName);
+    case "get-set":
+      return declareGetSet(accessModifier, returnType, variableName);
+    default:
+      return declareGet(accessModifier, returnType, variableName);
   }
 }
 
