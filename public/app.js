@@ -31,7 +31,17 @@ document.querySelector("#submit").addEventListener("click", () => {
       },
     })
       .then((response) => response.json())
-      .then((data) => (result.innerHTML = data.data));
+      .then((data) => {
+        result.innerHTML = data.data;
+
+        // Copy the response to clipboard
+        const range = document.createRange();
+        window.getSelection().removeAllRanges();
+        range.selectNode(result);
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+      });
   } catch (e) {
     result.innerHTML = "Please enter valid JSON";
     console.log(e);
