@@ -43,42 +43,37 @@
         <fieldset>
           <legend>Getters</legend>
           <label>Access modifier</label>
-          <select id="getter-access-modifier" onchange="getCSharpClasses()">
+          <select id="getter-access-modifier" onchange="getCSharpCode()">
             <option>public</option>
             <option>internal</option>
             <option>protected</option>
             <option>private</option>
           </select>
-          <label>
-            <input type="radio" name="get-method-type" value="lambda" onchange="getCSharpClasses()" checked/>
-            Generate lambda functions
-          </label>
-          <label>
-            <input type="radio" name="get-method-type" value="normal-methods" onchange="getCSharpClasses()"/>
-            Generate normal methods
-          </label>
-          <label>
-            <input type="radio" name="get-method-type" value="get" onchange="getCSharpClasses()"/>
-            Generate { get; }
-          </label>
-          <label>
-            <input type="radio" name="get-method-type" value="get-set" onchange="getCSharpClasses()"/>
-            Generate { get; set; }
-          </label>
-
+          <label>Getters type</label>
+          <select id="get-method-type" onchange="getCSharpCode()">
+            <option value="get" selected>{ get; }</option>
+            <option value="get-set">{ get; set; }</option>
+            <option value="normal-methods">Normal methods</option>
+            <option value="lambda">Lambda functions</option>
+          </select>
         </fieldset>
         <label>
-          <input type="checkbox" id="new-line" onchange="getCSharpClasses()"/>
+          <input type="checkbox" id="new-line" onchange="getCSharpCode()" />
           New line before "{"
         </label>
         <label>Private variable prefix</label>
-        <select id="variablePrefix" onchange="getCSharpClasses()">
+        <select id="variablePrefix" onchange="getCSharpCode()">
           <option value="_">Underscore</option>
           <option value="m_">m Underscore</option>
           <option value="">None</option>
         </select>
         <label>
-          <input type="checkbox" id="serializable" checked  onchange="getCSharpClasses()"/>
+          <input
+            type="checkbox"
+            id="serializable"
+            checked
+            onchange="getCSharpCode()"
+          />
           Add [System.Serializable]
         </label>
       </div>

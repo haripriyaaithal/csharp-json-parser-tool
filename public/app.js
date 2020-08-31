@@ -1,12 +1,27 @@
+const LOCAL_STORAGE_SETTINGS_KEY = "settings";
+
 const input = document.querySelector("#json-input");
 const result = document.querySelector("#result");
+const getAccessModifier = document.querySelector("#getter-access-modifier");
+const getMethodType = document.querySelector("#get-method-type");
+const newLine = document.querySelector("#new-line");
+const variablePrefix = document.querySelector("#variablePrefix");
+const serializable = document.querySelector("#serializable");
 
 document.querySelector("#submit").addEventListener("click", () => {
   getCSharpCode();
 });
 
+window.addEventListener("load", () => {
+  applySettings();
+});
+
 function getCSharpCode() {
-  result.innerHTML = "Loading...";
+  saveSettings();
+  if (input.value.length === 0) {
+    result.innerHTML = "";
+    return;
+  }  
   try {
     let json = input.value;
     let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
@@ -19,14 +34,14 @@ function getCSharpCode() {
         data: encodeURIComponent(updatedJson),
         codeConfig: {
           accessModifiers: {
-            get: document.querySelector("#getter-access-modifier").value,
+            get: getAccessModifier.value,
           },
           methodType: {
-            get: document.querySelector('input[name="get-method-type"]:checked').value,
+            get: getMethodType.value,
           },
-          newLine: document.querySelector("#new-line").checked,
-          variablePrefix: document.querySelector("#variablePrefix").value,
-          serializable: document.querySelector("#serializable").checked
+          newLine: newLine.checked,
+          variablePrefix: variablePrefix.value,
+          serializable: serializable.checked,
         },
       }),
       headers: {
@@ -50,4 +65,35 @@ function getCSharpCode() {
     result.innerHTML = "Please enter valid JSON";
     console.log(e);
   }
+}
+
+function saveSettings() {
+  let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
+  const currentSettings = JSON.stringify({
+    getAccessModifier: getAccessModifier.selectedIndex,
+    getMethodType: getMethodType.selectedIndex,
+    newLine: newLine.checked,
+    variablePrefix: variablePrefix.selectedIndex,
+    serializable: serializable.checked,
+  });
+  if (storedSettings === null) {
+    storedSettings = "{}";
+  }
+  if (storedSettings !== currentSettings) {
+    localStorage.setItem(LOCAL_STORAGE_SETTINGS_KEY, currentSettings);
+  }
+}
+
+function applySettings() {
+  let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
+  if (storedSettings === null) {
+    return;
+  }
+  console.log("Applying settings");
+  storedSettings = JSON.parse(storedSettings);
+  getAccessModifier.selectedIndex = storedSettings.getAccessModifier;
+  getMethodType.selectedIndex = storedSettings.getMethodType;
+  newLine.checked = storedSettings.newLine;
+  variablePrefix.selectedIndex = storedSettings.variablePrefix;
+  serializable.checked = storedSettings.serializable;
 }
