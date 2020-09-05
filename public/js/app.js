@@ -23,6 +23,13 @@ window.addEventListener("load", () => {
   applySettings();
 });
 
+input.addEventListener("change", () => {
+  const updatedJson = validateJSON(input.value);
+  if (updatedJson !== null) {
+    input.value = JSON.stringify(updatedJson, null, "\t");
+  }
+});
+
 function getCSharpCode(onClickSubmit = false) {
   saveSettings();
   if (input.value.length === 0) {
@@ -33,16 +40,13 @@ function getCSharpCode(onClickSubmit = false) {
     return;
   }
   showLoader(true);
-  try {
-    let json = input.value;
-    let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
-    let updatedJson = json.replace(regex, "");
 
-    JSON.parse(updatedJson);
+  const updatedJson = validateJSON(input.value);
+  if (updatedJson !== null) {
     fetch("/api", {
       method: "POST",
       body: JSON.stringify({
-        data: encodeURIComponent(updatedJson),
+        data: encodeURIComponent(JSON.stringify(updatedJson)),
         codeConfig: {
           accessModifiers: {
             get: getAccessModifier.value,
@@ -64,23 +68,34 @@ function getCSharpCode(onClickSubmit = false) {
       .then((data) => {
         showLoader(false);
         result.innerHTML = data.data;
-
-        // Copy the response to clipboard
-        const range = document.createRange();
-        window.getSelection().removeAllRanges();
-        range.selectNode(result);
-        window.getSelection().addRange(range);
-        document.execCommand("copy");
-        window.getSelection().removeAllRanges();
-        showRoundedToast("C# code copied to clipboard!");
+        copyToClipboard(result);
       });
-  } catch (e) {
+  } else {
     showLoader(false);
     if (onClickSubmit) {
       showRoundedToast("Please enter a valid JSON");
     }
-    console.log(e);
   }
+}
+
+function validateJSON(json) {
+  try {
+    const regex = /\,(?!\s*?[\{\[\"\'\w])/g;
+    const updatedJson = json.replace(regex, "");
+    return JSON.parse(updatedJson);
+  } catch (e) {
+    return null;
+  }
+}
+
+function copyToClipboard(result) {
+  const range = document.createRange();
+  window.getSelection().removeAllRanges();
+  range.selectNode(result);
+  window.getSelection().addRange(range);
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();
+  showRoundedToast("C# code copied to clipboard!");
 }
 
 function saveSettings() {
@@ -105,7 +120,6 @@ function applySettings() {
   if (storedSettings === null) {
     return;
   }
-  console.log("Applying settings");
   storedSettings = JSON.parse(storedSettings);
   getAccessModifier.selectedIndex = storedSettings.getAccessModifier;
   getMethodType.selectedIndex = storedSettings.getMethodType;
