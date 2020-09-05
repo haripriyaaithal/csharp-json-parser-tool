@@ -7,27 +7,32 @@ const getMethodType = document.querySelector("#get-method-type");
 const newLine = document.querySelector("#new-line");
 const variablePrefix = document.querySelector("#variablePrefix");
 const serializable = document.querySelector("#serializable");
+const loader = document.querySelector("#loader");
 
 document.addEventListener("DOMContentLoaded", function () {
   var elems = document.querySelectorAll("select");
   var instances = M.FormSelect.init(elems, {});
+  showLoader(false);
 });
 
 document.querySelector("#submit").addEventListener("click", () => {
-  getCSharpCode();
+  getCSharpCode(true);
 });
 
 window.addEventListener("load", () => {
   applySettings();
 });
 
-function getCSharpCode() {
+function getCSharpCode(onClickSubmit = false) {
   saveSettings();
   if (input.value.length === 0) {
     result.innerHTML = "";
+    if (onClickSubmit) {
+      showRoundedToast("Please enter a valid JSON");
+    }
     return;
   }
-
+  showLoader(true);
   try {
     let json = input.value;
     let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
@@ -57,6 +62,7 @@ function getCSharpCode() {
     })
       .then((response) => response.json())
       .then((data) => {
+        showLoader(false);
         result.innerHTML = data.data;
 
         // Copy the response to clipboard
@@ -66,14 +72,13 @@ function getCSharpCode() {
         window.getSelection().addRange(range);
         document.execCommand("copy");
         window.getSelection().removeAllRanges();
-        M.toast({
-          html: "C# code copied to clipboard!",
-          classes: "rounded",
-          displayLength: 1500,
-        });
+        showRoundedToast("C# code copied to clipboard!");
       });
   } catch (e) {
-    result.innerHTML = "Please enter valid JSON";
+    showLoader(false);
+    if (onClickSubmit) {
+      showRoundedToast("Please enter a valid JSON");
+    }
     console.log(e);
   }
 }
@@ -107,4 +112,18 @@ function applySettings() {
   newLine.checked = storedSettings.newLine;
   variablePrefix.selectedIndex = storedSettings.variablePrefix;
   serializable.checked = storedSettings.serializable;
+}
+
+function showRoundedToast(message) {
+  M.toast({
+    html: message,
+    classes: "rounded",
+    displayLength: 1500,
+  });
+}
+
+function showLoader(enable) {
+  result.innerHTML = "";
+  const visibility = enable ? "flex" : "none";
+  loader.style.display = visibility;
 }
