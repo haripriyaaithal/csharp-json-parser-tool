@@ -98,6 +98,10 @@ function copyToClipboard(result) {
   showRoundedToast("C# code copied to clipboard!");
 }
 
+function copyResultToClipboard() {
+  copyToClipboard(result);
+}
+
 function saveSettings() {
   let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
   const currentSettings = JSON.stringify({
