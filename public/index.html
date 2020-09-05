@@ -1,92 +1,134 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>C# JSON Parser</title>
-    <style>
-      html,
-      body {
-        margin: 0;
-      }
-      .column {
-        float: left;
-        width: 47vw;
-        height: 80vh;
-        padding: 16px;
-      }
-      .center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+   <head>
+      <meta charset="utf-8" />
+      <title>C# JSON Parser</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+      <link rel="stylesheet" href="css/style.css" />
 
-      .button {
-        padding: 8px;
-        margin-right: 100px;
-      }
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      #json-input {
-        width: 85%;
-        height: 85%;
-        align-content: center;
-      }
+   </head>
+   <body>
+      <header>
+         <nav>
+            <div class="nav-wrapper orange darken-4 z-depth-2">
+               <a href="#" class="brand-logo center">C# - JSON Parser</a>
+            </div>
+         </nav>
+      </header>
+      <main>
+         
+         <div class="row">
+            <div class="col l3 m12 s12">
+               <div class="card-panel custom-card z-depth-2">
+                  <div class="blue darken-2 card-title-custom z-depth-2">
+                     <h5 class="white-text center" style="margin: auto; padding: 15px;">Settings</h5>
+                  </div>
+                  <div class="row" style="margin-top: 40px;">
+                    <div class="input-field col s12">
+                      <select id="getter-access-modifier" onchange="getCSharpCode()">
+                          <option>public</option>
+                          <option>internal</option>
+                          <option>protected</option>
+                          <option>private</option>
+                      </select>
+                      <label>Access modifier</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <select id="get-method-type" onchange="getCSharpCode()">
+                          <option value="get" selected>{ get; }</option>
+                          <option value="get-set">{ get; set; }</option>
+                          <option value="normal-methods">Normal methods</option>
+                          <option value="lambda">Lambda functions</option>
+                      </select>
+                      <label>Getters type</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <select id="variablePrefix" onchange="getCSharpCode()">
+                          <option value="_">Underscore</option>
+                          <option value="m_">m Underscore</option>
+                          <option value="">None</option>
+                      </select>
+                      <label>Private variable prefix</label>
+                    </div>
+                    <div style="padding: 10px">
+                      <label>
+                        <input type="checkbox" class="filled-in" checked="checked" id="new-line" onchange="getCSharpCode()"/>
+                        <span>New line before "{"</span>                    
+                      </label>
+                    </div>
+                    <div style="padding: 10px">
+                      <label>
+                        <input type="checkbox" class="filled-in" checked="checked" id="serializable" onchange="getCSharpCode()"/>
+                        <span>Add [System.Serializable]</span>
+                      </label>
+                    </div>
+                  </div>
+               </div>
+            </div>
+            
+            <div class="col l4 m12 s12">
+               <div class="card-panel custom-card z-depth-2" style="padding-left: 0px; padding-right: 0;">
+                  <div class="blue darken-2 card-title-custom z-depth-2">
+                     <h5 class="white-text center card-title-text">JSON Input</h5>
+                  </div>
+                  <div class="input-field col s12 scroll-view" style="margin-top: 40px; overflow: hidden;">
+                     <textarea id="json-input"  style="resize: none; height: 100%;border: none;"></textarea>
+                     <label for="json-input">Paste the JSON here</label>
+                  </div>
+               </div>
+            </div>
 
-      #result {
-        padding-bottom: 32px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="main">
-      <div>
-        <fieldset>
-          <legend>Getters</legend>
-          <label>Access modifier</label>
-          <select id="getter-access-modifier" onchange="getCSharpCode()">
-            <option>public</option>
-            <option>internal</option>
-            <option>protected</option>
-            <option>private</option>
-          </select>
-          <label>Getters type</label>
-          <select id="get-method-type" onchange="getCSharpCode()">
-            <option value="get" selected>{ get; }</option>
-            <option value="get-set">{ get; set; }</option>
-            <option value="normal-methods">Normal methods</option>
-            <option value="lambda">Lambda functions</option>
-          </select>
-        </fieldset>
-        <label>
-          <input type="checkbox" id="new-line" onchange="getCSharpCode()" />
-          New line before "{"
-        </label>
-        <label>Private variable prefix</label>
-        <select id="variablePrefix" onchange="getCSharpCode()">
-          <option value="_">Underscore</option>
-          <option value="m_">m Underscore</option>
-          <option value="">None</option>
-        </select>
-        <label>
-          <input
-            type="checkbox"
-            id="serializable"
-            checked
-            onchange="getCSharpCode()"
-          />
-          Add [System.Serializable]
-        </label>
-      </div>
-      <div class="column">
-        <textarea type="textbox" id="json-input"></textarea>
-        <div class="center">
-          <button id="submit" class="button">Generate C# classes</button>
-        </div>
-      </div>
-      <div class="column">
-        <pre id="result"></pre>
-      </div>
-      <script src="app.js"></script>
-    </div>
-  </body>
+            <div class="col l5 m12 s12">
+               <div class="card-panel custom-card z-depth-2">
+                  <div class="blue darken-2 card-title-custom z-depth-2" >
+                     <h5 class="white-text center card-title-text">C# Code</h5>
+                  </div>
+                  <div class="scroll-view">
+                     <pre id="result"></pre>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+
+         <div class="row">
+            <div class="col l12 m12 s12 center-align">
+               <button id="submit" class="btn waves-effect waves-light blue darken-2 z-depth-3">Generate C# classes</button>
+            </div>
+         </div>
+
+      </main>
+
+      <footer class="page-footer orange darken-4">
+         <div class="container">
+            <div class="row">
+               <div class="col l6 s12">
+                  <h5 class="white-text">C# - JSON Parser</h5>
+                  <p class="grey-text text-lighten-4">
+                  <p>This website helps users to generate C# classes to parse JSON. Just paste the JSON and click on "Generate C# classes" button. </p>
+                  <p>Users can also customize variable names, get and set functions/properties, coding style etc.</p>
+                  </p>
+               </div>
+               <div class="col l4 offset-l2 s12">
+                  <h5 class="white-text">Links</h5>
+                  <ul>
+                     <li><a class="grey-text text-lighten-3" href="mailto:haripriyaaithal@gmail.com">Contact Us</a></li>
+                     <li><a class="grey-text text-lighten-3" href="/privacy-policy">Privacy Policy</a></li>
+                     <li><a class="grey-text text-lighten-3" href="mailto:haripriyaaithal@gmail.com">Report a problem</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="footer-copyright">
+            <div class="container">
+               Copyright © 2020 Haripriya Aithal. All Rights Reserved.
+            </div>
+         </div>
+      </footer>
+      <script src="js/app.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   </body>
 </html>

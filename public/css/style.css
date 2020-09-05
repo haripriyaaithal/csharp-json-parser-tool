@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.custom-card {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 70vh;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: grey white;
+}
+
+.card-title-custom {
+  height: 65px;
+  margin: -25px;
+  z-index: 10;
+  position: relative;
+}
+
+.card-title-text {
+  margin: auto;
+  padding: 15px;
+}
+
+.scroll-view {
+  margin-top: 40px;
+  overflow: scroll;
+  height: 90%;
+  z-index: 0;
+  position: relative;
+}
+
+/* Works on Chrome/Edge/Safari*/
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: white;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+/* label color */
+.input-field label {
+  color: gray;
+}
+/* label focus color */
+.input-field input[type="text"]:focus + label {
+  color: gray;
+}
+/* label underline focus color */
+.input-field input[type="text"]:focus {
+  border-bottom: 1px solid gray;
+  box-shadow: 0 1px 0 0 #000;
+}
+
+.dropdown-content li > span {
+  font-size: 16px;
+  color: #000;
+  display: block;
+  line-height: 22px;
+  padding: 14px 16px;
+}
+
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #0288d1;
+  background-color: #0288d1;
+  z-index: 0;
+}

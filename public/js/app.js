@@ -8,6 +8,11 @@ const newLine = document.querySelector("#new-line");
 const variablePrefix = document.querySelector("#variablePrefix");
 const serializable = document.querySelector("#serializable");
 
+document.addEventListener("DOMContentLoaded", function () {
+  var elems = document.querySelectorAll("select");
+  var instances = M.FormSelect.init(elems, {});
+});
+
 document.querySelector("#submit").addEventListener("click", () => {
   getCSharpCode();
 });
@@ -21,7 +26,8 @@ function getCSharpCode() {
   if (input.value.length === 0) {
     result.innerHTML = "";
     return;
-  }  
+  }
+
   try {
     let json = input.value;
     let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
@@ -60,6 +66,11 @@ function getCSharpCode() {
         window.getSelection().addRange(range);
         document.execCommand("copy");
         window.getSelection().removeAllRanges();
+        M.toast({
+          html: "C# code copied to clipboard!",
+          classes: "rounded",
+          displayLength: 1500,
+        });
       });
   } catch (e) {
     result.innerHTML = "Please enter valid JSON";
