@@ -9,7 +9,17 @@ const variablePrefix = document.querySelector("#variablePrefix");
 const serializable = document.querySelector("#serializable");
 const loader = document.querySelector("#loader");
 
+const registerServiceWorker = () => {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((reg) => console.log("Service worker registered. ", reg))
+      .catch((error) => console.log("Service worker not registered. ", error));
+  }
+};
+
 document.addEventListener("DOMContentLoaded", function () {
+  registerServiceWorker();
   var elems = document.querySelectorAll("select");
   var instances = M.FormSelect.init(elems, {});
   showLoader(false);
@@ -30,7 +40,75 @@ input.addEventListener("change", () => {
   }
 });
 
-function getCSharpCode(onClickSubmit = false) {
+const validateJSON = (json) => {
+  try {
+    const regex = /\,(?!\s*?[\{\[\"\'\w])/g;
+    const updatedJson = json.replace(regex, "");
+    return JSON.parse(updatedJson);
+  } catch (e) {
+    return null;
+  }
+};
+
+const copyToClipboard = (result) => {
+  const range = document.createRange();
+  window.getSelection().removeAllRanges();
+  range.selectNode(result);
+  window.getSelection().addRange(range);
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();
+  showRoundedToast("C# code copied to clipboard!");
+};
+
+const copyResultToClipboard = () => {
+  copyToClipboard(result);
+};
+
+const saveSettings = () => {
+  let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
+  const currentSettings = JSON.stringify({
+    getAccessModifier: getAccessModifier.selectedIndex,
+    getMethodType: getMethodType.selectedIndex,
+    newLine: newLine.checked,
+    variablePrefix: variablePrefix.selectedIndex,
+    serializable: serializable.checked,
+  });
+  if (storedSettings === null) {
+    storedSettings = "{}";
+  }
+  if (storedSettings !== currentSettings) {
+    localStorage.setItem(LOCAL_STORAGE_SETTINGS_KEY, currentSettings);
+  }
+};
+
+const applySettings = () => {
+  let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
+  if (storedSettings === null) {
+    return;
+  }
+  storedSettings = JSON.parse(storedSettings);
+  getAccessModifier.selectedIndex = storedSettings.getAccessModifier;
+  getMethodType.selectedIndex = storedSettings.getMethodType;
+  newLine.checked = storedSettings.newLine;
+  variablePrefix.selectedIndex = storedSettings.variablePrefix;
+  serializable.checked = storedSettings.serializable;
+};
+
+const showRoundedToast = (message) => {
+  M.toast({
+    html: message,
+    classes: "rounded",
+    displayLength: 1500,
+  });
+};
+
+const showLoader = (enable) => {
+  result.innerHTML = "";
+  const visibility = enable ? "flex" : "none";
+  loader.style.display = visibility;
+};
+
+const getCSharpCode = (onClickSubmit = false) => {
   saveSettings();
   if (input.value.length === 0) {
     result.innerHTML = "";
@@ -76,72 +154,4 @@ function getCSharpCode(onClickSubmit = false) {
       showRoundedToast("Please enter a valid JSON");
     }
   }
-}
-
-function validateJSON(json) {
-  try {
-    const regex = /\,(?!\s*?[\{\[\"\'\w])/g;
-    const updatedJson = json.replace(regex, "");
-    return JSON.parse(updatedJson);
-  } catch (e) {
-    return null;
-  }
-}
-
-function copyToClipboard(result) {
-  const range = document.createRange();
-  window.getSelection().removeAllRanges();
-  range.selectNode(result);
-  window.getSelection().addRange(range);
-  document.execCommand("copy");
-  window.getSelection().removeAllRanges();
-  showRoundedToast("C# code copied to clipboard!");
-}
-
-function copyResultToClipboard() {
-  copyToClipboard(result);
-}
-
-function saveSettings() {
-  let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
-  const currentSettings = JSON.stringify({
-    getAccessModifier: getAccessModifier.selectedIndex,
-    getMethodType: getMethodType.selectedIndex,
-    newLine: newLine.checked,
-    variablePrefix: variablePrefix.selectedIndex,
-    serializable: serializable.checked,
-  });
-  if (storedSettings === null) {
-    storedSettings = "{}";
-  }
-  if (storedSettings !== currentSettings) {
-    localStorage.setItem(LOCAL_STORAGE_SETTINGS_KEY, currentSettings);
-  }
-}
-
-function applySettings() {
-  let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
-  if (storedSettings === null) {
-    return;
-  }
-  storedSettings = JSON.parse(storedSettings);
-  getAccessModifier.selectedIndex = storedSettings.getAccessModifier;
-  getMethodType.selectedIndex = storedSettings.getMethodType;
-  newLine.checked = storedSettings.newLine;
-  variablePrefix.selectedIndex = storedSettings.variablePrefix;
-  serializable.checked = storedSettings.serializable;
-}
-
-function showRoundedToast(message) {
-  M.toast({
-    html: message,
-    classes: "rounded",
-    displayLength: 1500,
-  });
-}
-
-function showLoader(enable) {
-  result.innerHTML = "";
-  const visibility = enable ? "flex" : "none";
-  loader.style.display = visibility;
-}
+};
