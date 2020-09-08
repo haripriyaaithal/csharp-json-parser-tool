@@ -20,8 +20,7 @@ const registerServiceWorker = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   registerServiceWorker();
-  var elems = document.querySelectorAll("select");
-  var instances = M.FormSelect.init(elems, {});
+  M.FormSelect.init(document.querySelectorAll("select"), {});
   showLoader(false);
 });
 
@@ -87,10 +86,23 @@ const applySettings = () => {
     return;
   }
   storedSettings = JSON.parse(storedSettings);
-  getAccessModifier.selectedIndex = storedSettings.getAccessModifier;
-  getMethodType.selectedIndex = storedSettings.getMethodType;
+
+  let selectedIndex = storedSettings.getAccessModifier;
+  getAccessModifier.selectedIndex = selectedIndex;
+  M.FormSelect.getInstance(getAccessModifier).input.value =
+    getAccessModifier.options[selectedIndex].innerText;
+
+  selectedIndex = storedSettings.getMethodType;
+  getMethodType.selectedIndex = selectedIndex;
+  M.FormSelect.getInstance(getMethodType).input.value =
+    getMethodType.options[selectedIndex].innerText;
+
+  selectedIndex = storedSettings.variablePrefix;
+  variablePrefix.selectedIndex = selectedIndex;
+  M.FormSelect.getInstance(variablePrefix).input.value =
+    variablePrefix.options[selectedIndex].innerText;
+
   newLine.checked = storedSettings.newLine;
-  variablePrefix.selectedIndex = storedSettings.variablePrefix;
   serializable.checked = storedSettings.serializable;
 };
 
