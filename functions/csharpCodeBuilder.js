@@ -1,16 +1,20 @@
+const codeHighlighter = require("./codeHighlighter");
+
 let codeSettings;
 
-const classKeyword = "class";
-let systemSerializableKeyword = "[System.Serializable]";
-const privateAccessModifier = "private";
-const internalAccessModifier = "internal";
-const publicAccessModifier = "public";
-const protectedAccessModifier = "protected";
+const classKeyword = codeHighlighter.keywordColor("class");
+let systemSerializableKeyword = `[System.${codeHighlighter.classColor(
+  "Serializable"
+)}]`;
+const privateAccessModifier = codeHighlighter.keywordColor("private");
+const internalAccessModifier = codeHighlighter.keywordColor("internal");
+const publicAccessModifier = codeHighlighter.keywordColor("public");
+const protectedAccessModifier = codeHighlighter.keywordColor("protected");
 
 const getKeyword = "Get";
 const listKeyword = "List";
-const returnKeyword = "return";
-const listDeclarationOpen = "List&lt";
+const returnKeyword = codeHighlighter.keywordColor("return");
+const listDeclarationOpen = `${codeHighlighter.classColor("List")}&lt`;
 const listDeclarationClose = "&gt;";
 
 const space = "&nbsp;";
@@ -20,62 +24,72 @@ let openCurlyBrace = "{";
 const closeCurlyBrace = "}" + newLine;
 const openParentheses = "(";
 const closeParenthses = ")";
-const arrow = "=>";
+const arrow = codeHighlighter.arrowColor("=>");
 const semicolon = ";";
 
-const jsonPropertyOpen = '[JsonProperty("';
-const jsonPropertyClose = '")]';
+const jsonPropertyOpen = `[JsonProperty(${codeHighlighter.stringColor('"')}`;
+const jsonPropertyClose = `${codeHighlighter.stringColor('"')})]`;
 
 const getDataType = (data) => {
-  switch (typeof (data)) {
+  switch (typeof data) {
     case "number":
       if (data.toString().includes(".")) {
-        return "float";
+        return codeHighlighter.keywordColor("float");
       } else {
-        return "int";
+        return codeHighlighter.keywordColor("int");
       }
     case "string":
-      return "string";
+      return codeHighlighter.keywordColor("string");
     case "boolean":
-      return "bool";
+      return codeHighlighter.keywordColor("bool");
     default:
-      return "object";
+      return codeHighlighter.keywordColor("object");
   }
 };
 
 const getClosingCurlyBrace = () => closeCurlyBrace;
 const getNewLine = () => newLine;
-const getListReturnType = (dataType) => listDeclarationOpen + dataType + listDeclarationClose;
+const getListReturnType = (dataType) =>
+  listDeclarationOpen + dataType + listDeclarationClose;
 const getListKeyWord = () => listKeyword;
 const getSpace = () => space;
 
-const getJsonPropertyString = (string) => tab + jsonPropertyOpen + string + jsonPropertyClose;
+const getJsonPropertyString = (string) =>
+  tab +
+  jsonPropertyOpen +
+  codeHighlighter.stringColor(string) +
+  jsonPropertyClose;
 
 const declareClass = (accessModfier, className) => {
   let curlyBraceNewLine = codeSettings.newLine ? newLine : "";
-  let classCode =  
+  let classCode =
     newLine +
     systemSerializableKeyword +
     newLine +
-    accessModfier +
+    codeHighlighter.keywordColor(accessModfier) +
     space +
     classKeyword +
     space +
-    className +
+    codeHighlighter.classColor(className) +
     space +
     curlyBraceNewLine +
     openCurlyBrace +
     newLine;
-    return classCode;
+  return classCode;
 };
 
-const declareMethod = (accessModifier, returnType, methodName, variableName) => {
-    let extraTab = codeSettings.newLine ? newLine + tab : "";
-    let method =
+const declareMethod = (
+  accessModifier,
+  returnType,
+  methodName,
+  variableName
+) => {
+  let extraTab = codeSettings.newLine ? newLine + tab : "";
+  let method =
     tab +
-    accessModifier +
+    codeHighlighter.keywordColor(accessModifier) +
     space +
-    returnType +
+    codeHighlighter.dataTypeColor(returnType) +
     space +
     methodName +
     openParentheses +
@@ -94,15 +108,20 @@ const declareMethod = (accessModifier, returnType, methodName, variableName) => 
     tab +
     closeCurlyBrace +
     newLine;
-    return method;
+  return method;
 };
 
-const declareLambdaFunction = (accessModifier, returnType, methodName, variableName) => {
+const declareLambdaFunction = (
+  accessModifier,
+  returnType,
+  methodName,
+  variableName
+) => {
   return (
     tab +
-    accessModifier +
+    codeHighlighter.keywordColor(accessModifier) +
     space +
-    returnType +
+    codeHighlighter.dataTypeColor(returnType) +
     space +
     methodName +
     space +
@@ -116,42 +135,47 @@ const declareLambdaFunction = (accessModifier, returnType, methodName, variableN
 
 const declareGetSet = (accessModifier, returnType, propertyName) => {
   let extraTab = codeSettings.newLine ? newLine + tab : " ";
-  let getSet = 
+  let getSet =
     tab +
-    accessModifier +
+    codeHighlighter.keywordColor(accessModifier) +
     space +
-    returnType +
+    codeHighlighter.dataTypeColor(returnType) +
     space +
-    propertyName.slice(codeSettings.variablePrefix.length).charAt(0).toUpperCase() +
+    propertyName
+      .slice(codeSettings.variablePrefix.length)
+      .charAt(0)
+      .toUpperCase() +
     propertyName.slice(codeSettings.variablePrefix.length + 1) +
     `${extraTab}${openCurlyBrace} ${newLine} ${tab} get { return ${propertyName}; } ${newLine} ${tab} set { ${propertyName} = value; } ${newLine}${tab}}` +
-    newLine + 
+    newLine +
     newLine;
-    return getSet;
+  return getSet;
 };
 
 const declareGet = (accessModifier, returnType, propertyName) => {
   let extraTab = codeSettings.newLine ? newLine + tab : " ";
   let get =
     tab +
-    accessModifier +
+    codeHighlighter.keywordColor(accessModifier) +
     space +
-    returnType +
+    codeHighlighter.dataTypeColor(returnType) +
     space +
-    propertyName.slice(codeSettings.variablePrefix.length).charAt(0).toUpperCase() +
+    propertyName
+      .slice(codeSettings.variablePrefix.length)
+      .charAt(0)
+      .toUpperCase() +
     propertyName.slice(codeSettings.variablePrefix.length + 1) +
     `${extraTab}${openCurlyBrace} ${newLine} ${tab} get { return ${propertyName}; } ${newLine}${tab}}` +
     newLine +
     newLine;
-    return get;
+  return get;
 };
 
 const declareVariable = (accessModifier, dataType, variableName) => {
-  console.log(accessModifier, " : " , "| Data: ", dataType, "| DataType: ", getDataType(dataType), "| Name", variableName)
   return (
-    accessModifier +
+    codeHighlighter.keywordColor(accessModifier) +
     space +
-    dataType +
+    codeHighlighter.dataTypeColor(dataType) +
     space +
     variableName +
     semicolon +
@@ -161,10 +185,10 @@ const declareVariable = (accessModifier, dataType, variableName) => {
 
 const declareList = (accessModifier, dataType, variableName) => {
   return (
-    accessModifier +
+    codeHighlighter.keywordColor(accessModifier) +
     space +
     listDeclarationOpen +
-    dataType +
+    codeHighlighter.dataTypeColor(dataType) +
     listDeclarationClose +
     space +
     variableName +
@@ -173,12 +197,28 @@ const declareList = (accessModifier, dataType, variableName) => {
   );
 };
 
-const createMethod = (methodType, accessModifier, returnType, methodName, variableName) => {
-  switch(methodType) {
+const createMethod = (
+  methodType,
+  accessModifier,
+  returnType,
+  methodName,
+  variableName
+) => {
+  switch (methodType) {
     case "lambda":
-      return declareLambdaFunction(accessModifier, returnType, methodName, variableName);
+      return declareLambdaFunction(
+        accessModifier,
+        returnType,
+        methodName,
+        variableName
+      );
     case "normal-methods":
-      return declareMethod(accessModifier, returnType, methodName, variableName);
+      return declareMethod(
+        accessModifier,
+        returnType,
+        methodName,
+        variableName
+      );
     case "get":
       return declareGet(accessModifier, returnType, variableName);
     case "get-set":
@@ -186,24 +226,26 @@ const createMethod = (methodType, accessModifier, returnType, methodName, variab
     default:
       return declareGet(accessModifier, returnType, variableName);
   }
-}
+};
 
 const resetFormatting = () => {
   openCurlyBrace = "{";
-  systemSerializableKeyword = "[System.Serializable]";
-}
+  systemSerializableKeyword = `[System.${codeHighlighter.classColor(
+    "Serializable"
+  )}]`;
+};
 
 const initialise = (codeConfig) => {
   codeSettings = codeConfig;
   if (!codeSettings.serializable) {
     systemSerializableKeyword = "";
   }
-}
+};
 
-module.exports = { 
+module.exports = {
   initialise: initialise,
-  declareClass: declareClass, 
-  declareVariable: declareVariable, 
+  declareClass: declareClass,
+  declareVariable: declareVariable,
   createMethod: createMethod,
   declareList: declareList,
   getClosingCurlyBrace: getClosingCurlyBrace,
@@ -213,5 +255,5 @@ module.exports = {
   getListReturnType: getListReturnType,
   getListKeyWord: getListKeyWord,
   getSpace: getSpace,
-  resetFormatting: resetFormatting
+  resetFormatting: resetFormatting,
 };
