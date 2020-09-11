@@ -42,6 +42,7 @@ main {
 /* Works on Chrome/Edge/Safari*/
 *::-webkit-scrollbar {
   width: 12px;
+  height: 12px;
 }
 *::-webkit-scrollbar-track {
   background: white;
@@ -147,4 +148,30 @@ nav .brand-logo {
   padding: 0;
   overflow: hidden;
   width: 300px;
+}
+
+/* Full screen div */
+.expand {
+  transition: all 0.3s ease;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+
+.shrink {
+  transition: all 0.3s ease;
+  position: relative;
+  height: 70vh;
+  width: 100%;
+  z-index: 1;
+}
+
+.pointer:hover {
+  cursor: pointer;
 }

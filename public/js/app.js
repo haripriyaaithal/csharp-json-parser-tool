@@ -7,29 +7,21 @@ const getMethodType = document.querySelector("#get-method-type");
 const newLine = document.querySelector("#new-line");
 const variablePrefix = document.querySelector("#variablePrefix");
 const serializable = document.querySelector("#serializable");
+const resultDiv = document.querySelector("#resultDiv");
 const loader = document.querySelector("#loader");
-
-const registerServiceWorker = () => {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .then((reg) => console.log("Service worker registered. ", reg))
-      .catch((error) => console.log("Service worker not registered. ", error));
-  }
-};
+const fullScreenButton = document.querySelector("#fullscreenButton");
+const fullScreenExitButton = document.querySelector("#fullscreenExitButton");
 
 document.addEventListener("DOMContentLoaded", function () {
   registerServiceWorker();
   M.FormSelect.init(document.querySelectorAll("select"), {});
   showLoader(false);
+  applySettings();
+  showButton(false, fullScreenExitButton);
 });
 
 document.querySelector("#submit").addEventListener("click", () => {
   getCSharpCode(true);
-});
-
-window.addEventListener("load", () => {
-  applySettings();
 });
 
 input.addEventListener("change", () => {
@@ -38,6 +30,12 @@ input.addEventListener("change", () => {
     input.value = JSON.stringify(updatedJson, null, "\t");
   }
 });
+
+const registerServiceWorker = () => {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js");
+  }
+};
 
 const validateJSON = (json) => {
   try {
@@ -165,5 +163,25 @@ const getCSharpCode = (onClickSubmit = false) => {
     if (onClickSubmit) {
       showRoundedToast("Please enter a valid JSON");
     }
+  }
+};
+
+const showButton = (show, element) => {
+  element.style.display = show ? "inline-block" : "none";
+};
+
+const enableFullscreen = (isFullscreen) => {
+  if (isFullscreen) {
+    document.body.style.overflow = "hidden";
+    resultDiv.classList.remove("shrink");
+    resultDiv.classList.add("expand");
+    showButton(false, fullScreenButton);
+    showButton(true, fullScreenExitButton);
+  } else {
+    resultDiv.classList.remove("expand");
+    resultDiv.classList.add("shrink");
+    document.body.style.overflowY = "auto";
+    showButton(false, fullScreenExitButton);
+    showButton(true, fullScreenButton);
   }
 };
