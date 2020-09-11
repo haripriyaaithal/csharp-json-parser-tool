@@ -11,6 +11,8 @@ const resultDiv = document.querySelector("#resultDiv");
 const loader = document.querySelector("#loader");
 const fullScreenButton = document.querySelector("#fullscreenButton");
 const fullScreenExitButton = document.querySelector("#fullscreenExitButton");
+const csFileImage = document.querySelector("#csFileImage");
+const jsonFileImage = document.querySelector("#jsonFileImage");
 
 document.addEventListener("DOMContentLoaded", function () {
   registerServiceWorker();
@@ -22,6 +24,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.querySelector("#submit").addEventListener("click", () => {
   getCSharpCode(true);
+});
+
+input.addEventListener("focus", () => {
+  showImage(jsonFileImage, false);
+});
+
+input.addEventListener("blur", () => {
+  if (input.value.length <= 0) {
+    showImage(jsonFileImage, true);
+  }
 });
 
 input.addEventListener("change", () => {
@@ -122,12 +134,14 @@ const getCSharpCode = (onClickSubmit = false) => {
   saveSettings();
   if (input.value.length === 0) {
     result.innerHTML = "";
+    showImage(csFileImage, true);
     if (onClickSubmit) {
       showRoundedToast("Please enter a valid JSON");
     }
     return;
   }
   showLoader(true);
+  showImage(csFileImage, false);
 
   const updatedJson = validateJSON(input.value);
   if (updatedJson !== null) {
@@ -160,6 +174,7 @@ const getCSharpCode = (onClickSubmit = false) => {
       });
   } else {
     showLoader(false);
+    showImage(csFileImage, true);
     if (onClickSubmit) {
       showRoundedToast("Please enter a valid JSON");
     }
@@ -184,4 +199,9 @@ const enableFullscreen = (isFullscreen) => {
     showButton(false, fullScreenExitButton);
     showButton(true, fullScreenButton);
   }
+};
+
+const showImage = (element, canShow) => {
+  const display = canShow ? "block" : "none";
+  element.style.display = display;
 };
