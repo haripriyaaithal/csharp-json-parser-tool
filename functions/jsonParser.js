@@ -173,9 +173,9 @@ const generateCSharpCode = () => {
 
 const parseJSON = (json, codeConfig) => {
   // TODO: Refactor & filter user input
-  variableAccessModifier = "private"; 
-  getMethodType = codeConfig.methodType.get; 
-  getterAccessModifier = codeConfig.accessModifiers.get; 
+  variableAccessModifier = "private";
+  getMethodType = codeConfig.methodType.get;
+  getterAccessModifier = codeConfig.accessModifiers.get;
   variablePrefix = codeConfig.variablePrefix;
 
   cSharp.initialise(codeConfig);
@@ -192,7 +192,7 @@ const parseJSON = (json, codeConfig) => {
   classesMap.get(1).push(cSharp.declareClass("public", "Parent"));
 
   extractObjects(JSON.parse(json), 1);
-  return generateCSharpCode();
+  return generateCSharpCode().trim();
 };
 
 module.exports = parseJSON;

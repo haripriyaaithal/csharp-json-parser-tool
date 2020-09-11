@@ -19,7 +19,7 @@ const listDeclarationClose = "&gt;";
 
 const space = "&nbsp;";
 const tab = "&nbsp;&nbsp;&nbsp;&nbsp;";
-const newLine = "<br>";
+const newLine = "\n";
 let openCurlyBrace = "{";
 const closeCurlyBrace = "}" + newLine;
 const openParentheses = "(";
