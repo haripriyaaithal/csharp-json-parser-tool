@@ -1,9 +1,10 @@
-const CACHE_NAME = "cache-v1";
+const CACHE_NAME = "cache-v2";
 
 const assets = [
   "/",
   "/index.html",
   "/offline.html",
+  "/privacy-policy.html",
   "/js/app.js",
   "/css/style.css",
   "/images/csharp.png",
@@ -14,7 +15,6 @@ const assets = [
   "https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
   "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js",
-  //"/privacy-policy",
 ];
 
 // Install service worker
