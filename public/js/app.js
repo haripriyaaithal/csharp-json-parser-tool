@@ -1,5 +1,5 @@
 const LOCAL_STORAGE_SETTINGS_KEY = "settings";
-
+const useNewtonSoft = document.querySelector("#useNewtonSoft");
 const input = document.querySelector("#json-input");
 const result = document.querySelector("#result");
 const getAccessModifier = document.querySelector("#getter-access-modifier");
@@ -43,6 +43,21 @@ input.addEventListener("change", () => {
   }
 });
 
+const shouldUseNewtonSoft = () => {
+  const dropdownObj = M.FormSelect.getInstance(variablePrefix);
+  Array.from(dropdownObj.el.options).forEach((option, index) => {
+    if (option.value === "") {
+      option.selected = !useNewtonSoft.checked;
+      variablePrefix.options[index].selected = true;
+    }
+  });
+  serializable.checked = true;
+  serializable.disabled = !useNewtonSoft.checked;
+  dropdownObj.input.value = "None";
+  dropdownObj.input.disabled = !useNewtonSoft.checked;
+  getCSharpCode();
+};
+
 const registerServiceWorker = () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js");
@@ -76,6 +91,7 @@ const copyResultToClipboard = () => {
 const saveSettings = () => {
   let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
   const currentSettings = JSON.stringify({
+    useNewtonSoft: useNewtonSoft.checked,
     getAccessModifier: getAccessModifier.selectedIndex,
     getMethodType: getMethodType.selectedIndex,
     newLine: newLine.checked,
@@ -97,6 +113,10 @@ const applySettings = () => {
   }
   storedSettings = JSON.parse(storedSettings);
 
+  useNewtonSoft.checked = storedSettings.useNewtonSoft;
+  if (!useNewtonSoft.checked) {
+    shouldUseNewtonSoft();
+  }
   let selectedIndex = storedSettings.getAccessModifier;
   getAccessModifier.selectedIndex = selectedIndex;
   M.FormSelect.getInstance(getAccessModifier).input.value =
@@ -150,6 +170,7 @@ const getCSharpCode = (onClickSubmit = false) => {
       body: JSON.stringify({
         data: encodeURIComponent(JSON.stringify(updatedJson)),
         codeConfig: {
+          useNewtonSoft: useNewtonSoft.checked,
           accessModifiers: {
             get: getAccessModifier.value,
           },

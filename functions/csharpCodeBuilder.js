@@ -6,6 +6,7 @@ const classKeyword = codeHighlighter.keywordColor("class");
 let systemSerializableKeyword = `[System.${codeHighlighter.classColor(
   "Serializable"
 )}]`;
+
 const privateAccessModifier = codeHighlighter.keywordColor("private");
 const internalAccessModifier = codeHighlighter.keywordColor("internal");
 const publicAccessModifier = codeHighlighter.keywordColor("public");
@@ -60,13 +61,13 @@ const getJsonPropertyString = (string) =>
   codeHighlighter.stringColor(string) +
   jsonPropertyClose;
 
-const declareClass = (accessModfier, className) => {
+const declareClass = (accessModifier, className) => {
   let curlyBraceNewLine = codeSettings.newLine ? newLine : "";
   let classCode =
     newLine +
     systemSerializableKeyword +
     newLine +
-    codeHighlighter.keywordColor(accessModfier) +
+    accessModifier +
     space +
     classKeyword +
     space +
@@ -87,7 +88,7 @@ const declareMethod = (
   let extraTab = codeSettings.newLine ? newLine + tab : "";
   let method =
     tab +
-    codeHighlighter.keywordColor(accessModifier) +
+    accessModifier +
     space +
     codeHighlighter.dataTypeColor(returnType) +
     space +
@@ -119,7 +120,7 @@ const declareLambdaFunction = (
 ) => {
   return (
     tab +
-    codeHighlighter.keywordColor(accessModifier) +
+    accessModifier +
     space +
     codeHighlighter.dataTypeColor(returnType) +
     space +
@@ -137,7 +138,7 @@ const declareGetSet = (accessModifier, returnType, propertyName) => {
   let extraTab = codeSettings.newLine ? newLine + tab : " ";
   let getSet =
     tab +
-    codeHighlighter.keywordColor(accessModifier) +
+    accessModifier +
     space +
     codeHighlighter.dataTypeColor(returnType) +
     space +
@@ -146,7 +147,13 @@ const declareGetSet = (accessModifier, returnType, propertyName) => {
       .charAt(0)
       .toUpperCase() +
     propertyName.slice(codeSettings.variablePrefix.length + 1) +
-    `${extraTab}${openCurlyBrace} ${newLine} ${tab} get { return ${propertyName}; } ${newLine} ${tab} set { ${propertyName} = value; } ${newLine}${tab}}` +
+    `${extraTab}${openCurlyBrace} ${newLine} ${tab} ${codeHighlighter.keywordColor(
+      "get"
+    )} { ${codeHighlighter.keywordColor(
+      "return"
+    )} ${propertyName}; } ${newLine} ${tab} ${codeHighlighter.keywordColor(
+      "set"
+    )} { ${propertyName} = value; } ${newLine}${tab}}` +
     newLine +
     newLine;
   return getSet;
@@ -156,7 +163,7 @@ const declareGet = (accessModifier, returnType, propertyName) => {
   let extraTab = codeSettings.newLine ? newLine + tab : " ";
   let get =
     tab +
-    codeHighlighter.keywordColor(accessModifier) +
+    accessModifier +
     space +
     codeHighlighter.dataTypeColor(returnType) +
     space +
@@ -165,7 +172,11 @@ const declareGet = (accessModifier, returnType, propertyName) => {
       .charAt(0)
       .toUpperCase() +
     propertyName.slice(codeSettings.variablePrefix.length + 1) +
-    `${extraTab}${openCurlyBrace} ${newLine} ${tab} get { return ${propertyName}; } ${newLine}${tab}}` +
+    `${extraTab}${openCurlyBrace} ${newLine} ${tab} ${codeHighlighter.keywordColor(
+      "get"
+    )} { ${codeHighlighter.keywordColor(
+      "return"
+    )} ${propertyName}; } ${newLine}${tab}}` +
     newLine +
     newLine;
   return get;
@@ -173,7 +184,7 @@ const declareGet = (accessModifier, returnType, propertyName) => {
 
 const declareVariable = (accessModifier, dataType, variableName) => {
   return (
-    codeHighlighter.keywordColor(accessModifier) +
+    accessModifier +
     space +
     codeHighlighter.dataTypeColor(dataType) +
     space +
@@ -185,7 +196,7 @@ const declareVariable = (accessModifier, dataType, variableName) => {
 
 const declareList = (accessModifier, dataType, variableName) => {
   return (
-    codeHighlighter.keywordColor(accessModifier) +
+    accessModifier +
     space +
     listDeclarationOpen +
     codeHighlighter.dataTypeColor(dataType) +
@@ -256,4 +267,9 @@ module.exports = {
   getListKeyWord: getListKeyWord,
   getSpace: getSpace,
   resetFormatting: resetFormatting,
+  privateAccessModifier: privateAccessModifier,
+  internalAccessModifier: internalAccessModifier,
+  publicAccessModifier: publicAccessModifier,
+  protectedAccessModifier: protectedAccessModifier,
+  getTab: tab,
 };

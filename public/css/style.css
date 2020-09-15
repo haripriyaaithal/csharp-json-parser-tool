@@ -184,3 +184,7 @@ nav .brand-logo {
   opacity: 40%;
   display: block;
 }
+
+label {
+  color: #212121;
+}
