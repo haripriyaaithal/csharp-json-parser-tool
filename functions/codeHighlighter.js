@@ -89,6 +89,16 @@ const stringColor = (string) => `<span style="color: #CD8365">${string}</span>`;
 const arrowColor = (arrow) => `<span style="color: #A9A9A9">${arrow}</span>`;
 
 const dataTypeColor = (returnType) => {
+  if (returnType.includes("List")) {
+    const dataType = returnType.substr(
+      returnType.indexOf("&lt") + 3,
+      returnType.indexOf("&gt") - returnType.indexOf("&lt") - 3
+    );
+    const coloredDataType = keywordList.includes(dataType)
+      ? keywordColor(dataType)
+      : classColor(dataType);
+    return returnType.replace(dataType, coloredDataType);
+  }
   return keywordList.includes(returnType)
     ? keywordColor(returnType)
     : classColor(returnType);
