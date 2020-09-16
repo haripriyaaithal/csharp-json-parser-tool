@@ -90,6 +90,7 @@ const arrowColor = (arrow) => `<span style="color: #A9A9A9">${arrow}</span>`;
 
 const dataTypeColor = (returnType) => {
   if (returnType.includes("List")) {
+    // Change color of data type, not < >
     const dataType = returnType.substr(
       returnType.indexOf("&lt") + 3,
       returnType.indexOf("&gt") - returnType.indexOf("&lt") - 3

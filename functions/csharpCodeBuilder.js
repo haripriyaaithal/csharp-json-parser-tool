@@ -12,7 +12,6 @@ const internalAccessModifier = codeHighlighter.keywordColor("internal");
 const publicAccessModifier = codeHighlighter.keywordColor("public");
 const protectedAccessModifier = codeHighlighter.keywordColor("protected");
 
-const getKeyword = "Get";
 const listKeyword = "List";
 const returnKeyword = codeHighlighter.keywordColor("return");
 const listDeclarationOpen = `${codeHighlighter.classColor("List")}&lt`;

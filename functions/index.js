@@ -8,7 +8,6 @@ app.post("/api", (request, response) => {
   let json = decodeURIComponent(request.body.data);
   let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
   let updatedJson = json.replace(regex, "");
-  console.log(request.body.codeConfig);
   response.send({
     data: parseJSON(updatedJson, request.body.codeConfig),
   });
