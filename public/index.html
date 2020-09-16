@@ -34,14 +34,21 @@
                   </div>
 
                   <div class="row scroll-view" style="margin-top: 20px;">
-                     <div class="input-field col s12">
-                        <div style="padding: 10px;">
-                        <label for="useNewtonSoft">
-                           <input type="checkbox" class="filled-in" id="useNewtonSoft" onchange="shouldUseNewtonSoft()" checked/>
-                           <span>Use Newtonsoft (Json.NET) plugin</span>
-                        </label>
+                     
+                     <div style="padding-top: 20px; padding-left: 10px">
+                      <label for="useNewtonSoft">
+                        <input type="checkbox" class="filled-in" id="useNewtonSoft" onchange="shouldUseNewtonSoft()" checked/>
+                        <span>Use Newtonsoft (Json.NET) plugin</span>                    
+                      </label>
                      </div>
+
+                     <div style="padding: 10px">
+                      <label for="generateGetters">
+                        <input type="checkbox" class="filled-in" id="generateGetters" onchange="getCSharpCode()" checked/>
+                        <span>Generate getters</span>                    
+                      </label>
                     </div>
+                    
                     <div class="input-field col s12">
                       <select id="getter-access-modifier" onchange="getCSharpCode()">
                           <option>public</option>
@@ -51,6 +58,7 @@
                       </select>
                       <label for="getter-access-modifier">Getters access modifier</label>
                     </div>
+
                     <div class="input-field col s12">
                       <select id="get-method-type" onchange="getCSharpCode()">
                           <option value="get" selected>{ get; }</option>
@@ -60,6 +68,7 @@
                       </select>
                       <label for="get-method-type">Getters type</label>
                     </div>
+
                     <div class="input-field col s12">
                       <select id="variablePrefix" onchange="getCSharpCode()">
                           <option value="_">Underscore</option>
@@ -68,18 +77,21 @@
                       </select>
                       <label for="variablePrefix">Private variable prefix</label>
                     </div>
+
                     <div style="padding: 10px">
                       <label for="new-line">
                         <input type="checkbox" class="filled-in" checked="checked" id="new-line" onchange="getCSharpCode()"/>
                         <span>New line before "{"</span>                    
                       </label>
                     </div>
+                    
                     <div style="padding: 10px">
                       <label for="serializable">
                         <input type="checkbox" class="filled-in" checked="checked" id="serializable" onchange="getCSharpCode()"/>
                         <span>Add [System.Serializable]</span>
                       </label>
                     </div>
+
                   </div>
                </div>
             </div>
@@ -96,7 +108,7 @@
                      <div class="center-logo" id="jsonFileImage">
                         <img src="images/json-file.png"  alt="JSON file icon"/>
                      </div>
-                     <textarea id="json-input"  style="resize: none; height: 100%;border: none;"></textarea>
+                     <textarea id="json-input" style="resize: none; height: 90%; border: none;"></textarea>
                      <label for="json-input">Paste the JSON here</label>
                   </div>
                </div>

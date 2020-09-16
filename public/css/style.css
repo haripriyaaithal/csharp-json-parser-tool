@@ -12,7 +12,7 @@ main {
 .custom-card {
   overflow-y: hidden;
   overflow-x: hidden;
-  height: 70vh;
+  height: 500px;
 }
 * {
   scrollbar-width: thin;
@@ -34,7 +34,7 @@ main {
 .scroll-view {
   margin-top: 40px;
   overflow: scroll;
-  height: 90%;
+  height: 98%;
   z-index: 0;
   position: relative;
 }
@@ -167,7 +167,7 @@ nav .brand-logo {
 .shrink {
   transition: all 0.3s ease;
   position: relative;
-  height: 70vh;
+  height: 500px;
   z-index: 1;
 }
 

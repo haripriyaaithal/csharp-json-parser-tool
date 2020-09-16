@@ -1,4 +1,5 @@
 const LOCAL_STORAGE_SETTINGS_KEY = "settings";
+
 const useNewtonSoft = document.querySelector("#useNewtonSoft");
 const input = document.querySelector("#json-input");
 const result = document.querySelector("#result");
@@ -13,6 +14,7 @@ const fullScreenButton = document.querySelector("#fullscreenButton");
 const fullScreenExitButton = document.querySelector("#fullscreenExitButton");
 const csFileImage = document.querySelector("#csFileImage");
 const jsonFileImage = document.querySelector("#jsonFileImage");
+const generateGetters = document.querySelector("#generateGetters");
 
 document.addEventListener("DOMContentLoaded", function () {
   registerServiceWorker();
@@ -27,12 +29,12 @@ document.querySelector("#submit").addEventListener("click", () => {
 });
 
 input.addEventListener("focus", () => {
-  showImage(jsonFileImage, false);
+  showElement(jsonFileImage, false);
 });
 
 input.addEventListener("blur", () => {
   if (input.value.length <= 0) {
-    showImage(jsonFileImage, true);
+    showElement(jsonFileImage, true);
   }
 });
 
@@ -55,6 +57,7 @@ const shouldUseNewtonSoft = () => {
   serializable.disabled = !useNewtonSoft.checked;
   dropdownObj.input.value = "None";
   dropdownObj.input.disabled = !useNewtonSoft.checked;
+  showElement(generateGetters.parentElement, !useNewtonSoft.checked);
   getCSharpCode();
 };
 
@@ -92,6 +95,7 @@ const saveSettings = () => {
   let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
   const currentSettings = JSON.stringify({
     useNewtonSoft: useNewtonSoft.checked,
+    generateGetters: generateGetters.checked,
     getAccessModifier: getAccessModifier.selectedIndex,
     getMethodType: getMethodType.selectedIndex,
     newLine: newLine.checked,
@@ -114,9 +118,9 @@ const applySettings = () => {
   storedSettings = JSON.parse(storedSettings);
 
   useNewtonSoft.checked = storedSettings.useNewtonSoft;
-  if (!useNewtonSoft.checked) {
-    shouldUseNewtonSoft();
-  }
+  generateGetters.checked = storedSettings.generateGetters;
+  shouldUseNewtonSoft();
+
   let selectedIndex = storedSettings.getAccessModifier;
   getAccessModifier.selectedIndex = selectedIndex;
   M.FormSelect.getInstance(getAccessModifier).input.value =
@@ -154,14 +158,14 @@ const getCSharpCode = (onClickSubmit = false) => {
   saveSettings();
   if (input.value.length === 0) {
     result.innerHTML = "";
-    showImage(csFileImage, true);
+    showElement(csFileImage, true);
     if (onClickSubmit) {
       showRoundedToast("Please enter a valid JSON");
     }
     return;
   }
   showLoader(true);
-  showImage(csFileImage, false);
+  showElement(csFileImage, false);
 
   const updatedJson = validateJSON(input.value);
   if (updatedJson !== null) {
@@ -171,6 +175,7 @@ const getCSharpCode = (onClickSubmit = false) => {
         data: encodeURIComponent(JSON.stringify(updatedJson)),
         codeConfig: {
           useNewtonSoft: useNewtonSoft.checked,
+          generateGetters: generateGetters.checked,
           accessModifiers: {
             get: getAccessModifier.value,
           },
@@ -195,7 +200,7 @@ const getCSharpCode = (onClickSubmit = false) => {
       });
   } else {
     showLoader(false);
-    showImage(csFileImage, true);
+    showElement(csFileImage, true);
     if (onClickSubmit) {
       showRoundedToast("Please enter a valid JSON");
     }
@@ -222,7 +227,7 @@ const enableFullscreen = (isFullscreen) => {
   }
 };
 
-const showImage = (element, canShow) => {
+const showElement = (element, canShow) => {
   const display = canShow ? "block" : "none";
   element.style.display = display;
 };

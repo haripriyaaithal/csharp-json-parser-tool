@@ -10,6 +10,7 @@ let getterAccessModifier = "";
 let variableAccessModifier = "";
 let variablePrefix = "";
 let useNewtonSoft;
+let generateGetters;
 
 const getClassId = (id) => {
   while (classesMap.has(id)) {
@@ -173,12 +174,18 @@ const generateCSharpCode = () => {
       csharpCode += element[i];
     }
 
+    csharpCode = csharpCode.trim();
     csharpCode += cSharp.getNewLine();
 
-    const methods = methodsMap.get(index);
-    methods.forEach((method) => {
-      csharpCode += method;
-    });
+    if (generateGetters) {
+      csharpCode += cSharp.getNewLine();
+      const methods = methodsMap.get(index);
+      methods.forEach((method) => {
+        csharpCode += method;
+      });
+    }
+    csharpCode = csharpCode.trim();
+    csharpCode += cSharp.getNewLine();
     csharpCode += cSharp.getClosingCurlyBrace();
   });
 
@@ -190,6 +197,7 @@ const generateCSharpCode = () => {
 
 const parseJSON = (json, codeConfig) => {
   useNewtonSoft = codeConfig.useNewtonSoft;
+  generateGetters = useNewtonSoft ? true : codeConfig.generateGetters;
   variableAccessModifier = codeConfig.useNewtonSoft
     ? cSharp.privateAccessModifier
     : cSharp.publicAccessModifier;
