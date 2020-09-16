@@ -54,7 +54,7 @@ const extractObjects = (obj, classId) => {
           getMethodType,
           getterAccessModifier,
           cSharp.getListReturnType(dataType),
-          "Get" + stringFormatter.formatPascalCase(name),
+          stringFormatter.formatPascalCase(name),
           variablePrefix + getVariableName(name)
         );
         methodsMap.get(classId).push(method);
@@ -90,7 +90,7 @@ const extractObjects = (obj, classId) => {
           getMethodType,
           getterAccessModifier,
           "object",
-          "Get" + stringFormatter.formatPascalCase(key),
+          stringFormatter.formatPascalCase(key),
           variablePrefix + getVariableName(key)
         );
         methodsMap.get(classId).push(method);
@@ -115,7 +115,7 @@ const extractObjects = (obj, classId) => {
           getMethodType,
           getterAccessModifier,
           stringFormatter.formatPascalCase(key),
-          "Get" + stringFormatter.formatPascalCase(key),
+          stringFormatter.formatPascalCase(key),
           variablePrefix + getVariableName(key)
         );
         methodsMap.get(classId).push(method);

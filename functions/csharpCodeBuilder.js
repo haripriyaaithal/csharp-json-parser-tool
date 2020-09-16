@@ -227,7 +227,7 @@ const createMethod = (
       return declareMethod(
         accessModifier,
         returnType,
-        methodName,
+        "Get" + methodName,
         variableName
       );
     case "get":

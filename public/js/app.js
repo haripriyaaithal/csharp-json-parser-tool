@@ -1,11 +1,11 @@
 const LOCAL_STORAGE_SETTINGS_KEY = "settings";
 
 const useNewtonSoft = document.querySelector("#useNewtonSoft");
-const input = document.querySelector("#json-input");
+const input = document.querySelector("#jsonInput");
 const result = document.querySelector("#result");
-const getAccessModifier = document.querySelector("#getter-access-modifier");
-const getMethodType = document.querySelector("#get-method-type");
-const newLine = document.querySelector("#new-line");
+const getAccessModifier = document.querySelector("#getterAccessModifier");
+const getMethodType = document.querySelector("#getMethodType");
+const newLine = document.querySelector("#newLine");
 const variablePrefix = document.querySelector("#variablePrefix");
 const serializable = document.querySelector("#serializable");
 const resultDiv = document.querySelector("#resultDiv");

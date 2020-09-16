@@ -50,23 +50,23 @@
                     </div>
                     
                     <div class="input-field col s12">
-                      <select id="getter-access-modifier" onchange="getCSharpCode()">
+                      <select id="getterAccessModifier" onchange="getCSharpCode()">
                           <option>public</option>
                           <option>internal</option>
                           <option>protected</option>
                           <option>private</option>
                       </select>
-                      <label for="getter-access-modifier">Getters access modifier</label>
+                      <label for="getterAccessModifier">Getters access modifier</label>
                     </div>
 
                     <div class="input-field col s12">
-                      <select id="get-method-type" onchange="getCSharpCode()">
+                      <select id="getMethodType" onchange="getCSharpCode()">
                           <option value="get" selected>{ get; }</option>
                           <option value="get-set">{ get; set; }</option>
                           <option value="normal-methods">Normal methods</option>
                           <option value="lambda">Lambda functions</option>
                       </select>
-                      <label for="get-method-type">Getters type</label>
+                      <label for="getMethodType">Getters type</label>
                     </div>
 
                     <div class="input-field col s12">
@@ -79,8 +79,8 @@
                     </div>
 
                     <div style="padding: 10px">
-                      <label for="new-line">
-                        <input type="checkbox" class="filled-in" checked="checked" id="new-line" onchange="getCSharpCode()"/>
+                      <label for="newLine">
+                        <input type="checkbox" class="filled-in" checked="checked" id="newLine" onchange="getCSharpCode()"/>
                         <span>New line before "{"</span>                    
                       </label>
                     </div>
@@ -108,8 +108,8 @@
                      <div class="center-logo" id="jsonFileImage">
                         <img src="images/json-file.png"  alt="JSON file icon"/>
                      </div>
-                     <textarea id="json-input" style="resize: none; height: 90%; border: none;"></textarea>
-                     <label for="json-input">Paste the JSON here</label>
+                     <textarea id="jsonInput" style="resize: none; height: 90%; border: none;"></textarea>
+                     <label for="jsonInput">Paste the JSON here</label>
                   </div>
                </div>
             </div>
