@@ -15,6 +15,7 @@ const fullScreenExitButton = document.querySelector("#fullscreenExitButton");
 const csFileImage = document.querySelector("#csFileImage");
 const jsonFileImage = document.querySelector("#jsonFileImage");
 const generateGetters = document.querySelector("#generateGetters");
+const url = document.querySelector("#url");
 
 document.addEventListener("DOMContentLoaded", function () {
   registerServiceWorker();
@@ -77,7 +78,7 @@ const validateJSON = (json) => {
   }
 };
 
-const copyToClipboard = (result) => {
+const copyToClipboard = (result, callback) => {
   if (result.innerText.length === 0) {
     return;
   }
@@ -87,11 +88,19 @@ const copyToClipboard = (result) => {
   window.getSelection().addRange(range);
   document.execCommand("copy");
   window.getSelection().removeAllRanges();
-  showRoundedToast("C# code copied to clipboard!");
+  callback();
 };
 
 const copyResultToClipboard = () => {
-  copyToClipboard(result);
+  copyToClipboard(result, () => {
+    showRoundedToast("C# code copied to clipboard!");
+  });
+};
+
+const copyUrlToClipboard = () => {
+  copyToClipboard(url, () => {
+    showRoundedToast("URL copied to clipboard!");
+  });
 };
 
 const saveSettings = () => {
@@ -200,7 +209,9 @@ const getCSharpCode = (onClickSubmit = false) => {
       .then((data) => {
         showLoader(false);
         result.innerHTML = data.data;
-        copyToClipboard(result);
+        copyToClipboard(result, () => {
+          showRoundedToast("C# code copied to clipboard!");
+        });
       });
   } else {
     showLoader(false);

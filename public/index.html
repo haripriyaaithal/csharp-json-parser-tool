@@ -20,6 +20,9 @@
                   <img src="/images/logo.png" class="nav-icon" alt="Main logo"/> 
                   C# - JSON Parser
                </a>
+               <h5 class="white-text center card-title-text">
+                  <a data-target="shareModal" class="modal-trigger pointer right"><i class="material-icons white-text" style="margin-top: -15px;">share</i></a>
+               </h5>
             </div>
          </nav>
       </header>
@@ -103,7 +106,7 @@
             </div>
             
             <div class="col l4 m12 s12">
-               <div class="card-panel custom-card z-depth-2" style="padding-left: 0px; padding-right: 0;">
+               <div class="card-panel custom-card z-depth-2">
                   <div class="blue darken-2 card-title-custom z-depth-2">
                      <h5 class="white-text center card-title-text">
                          <img src="/images/json.png" class="custom-icon" alt="JSON icon"/>
@@ -147,7 +150,7 @@
 
          <div class="row">
             <div class="col l12 m12 s12 center-align">
-               <button id="submit" class="btn waves-effect waves-light blue darken-2 z-depth-3">Generate C# classes</button>
+               <button id="submit" class="btn waves-effect waves-light blue darken-2 z-depth-3" style="border-radius: 5px;">Generate C# classes</button>
             </div>
          </div>
 
@@ -156,7 +159,7 @@
                <!-- <img src="https://via.placeholder.com/200x720?text=Contact+us+to+place+ads" /> -->
             </div>
             <div class="col l8 s12">
-               <div class="card darken-1">
+               <div class="card darken-1 z-depth-2" style="border-radius: 5px;">
                   <div class="card-content">
                      <h1 class="card-title" style="font-weight: bold !important; margin-top: 5px">Instructions to convert JSON object to C# code</h1>
                      <div class="divider"></div>
@@ -172,7 +175,7 @@
                      
                       <p class="card-title" style="padding-top: 10px;"><strong>Step 2:</strong></p>
                      <span>This website is a PWA (Progressive Web App). You can install this and open it directly from Launcher/Start menu.</span>
-
+                     <div class="divider" style="margin-top: 20px;"></div>
                      <div class="row" style="padding-top: 20px">
                         <div class="col l3 s12">
                            <p>
@@ -249,6 +252,38 @@
                <!-- <img src="https://via.placeholder.com/200x720?text=Contact+Us+to+place+ads" /> -->
             </div>
          </div>
+
+         <!-- Modal Structure -->
+         <div id="shareModal" class="modal" style="overflow: hidden;">
+            <div class="modal-content">
+               <div class="blue darken-2 card-title-custom z-depth-2 white-text" style="margin-top: -40px">
+                  <h5 class="center" style="padding-top: 15px;">Share with your colleagues/friends</h5>
+                  <a href="#!" class="modal-close waves-effect right white-text" style="margin-top: -30px; margin-right: 15px;"><i class="material-icons">close</i></a>
+               </div>
+               <div class="row center" style="margin-top: 60px">
+                  <h6 class="center" id="url">https://csharp-json-parser.web.app/</h6>
+                  <div class="share-links">
+                     <div class="col l2 s6 offset-l2">
+                        <img src="images/teams.png" class="share-icons teams-share-button z-depth-5" data-href="https://csharp-json-parser.web.app/">
+                     </div>
+                     <div class="col l2 s6">
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=Checkout%20http%3A%2F%2Fcsharp-json-parser.web.app%2F%20This%20web%20app%20will%20help%20you%20convert%20JSON%20object%20to%20C%23%20classes.%20%23dotNET%20%23dotnet%20%23dotnetcore%20%23microsoft%20%23developer%20%23windows">
+                        <img src="images/twitter.png" class="share-icons z-depth-5">
+                     </a>
+                     </div>
+                     <div class="col l2 s6">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcsharp-json-parser.web.app/" class="fb-xfbml-parse-ignore">
+                        <img src="images/fb.png" class="share-icons z-depth-5" data-href="https://csharp-json-parser.web.app/" data-layout="button" data-size="small">
+                     </a>
+                     </div>
+                     <div class="col l2 s6">
+                        <img onclick="copyUrlToClipboard()" src="images/copy.png" class="share-icons z-depth-5">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
       </main>
 
       <footer class="page-footer red lighten-1">
@@ -284,5 +319,7 @@
       </footer>
       <script src="/js/app.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script async defer src="https://teams.microsoft.com/share/launcher.js"></script>
+      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0" nonce="UXSrAwP0"></script>
    </body>
 </html>

@@ -13,6 +13,7 @@ main {
   overflow-y: hidden;
   overflow-x: hidden;
   height: 500px;
+  border-radius: 5px;
 }
 * {
   scrollbar-width: thin;
@@ -112,22 +113,6 @@ main {
   animation-delay: 0.4s;
 }
 
-@-webkit-keyframes pulse {
-  to {
-    -webkit-transform: scale(0.8);
-    transform: scale(0.8);
-    opacity: 0.5;
-  }
-}
-
-@keyframes pulse {
-  to {
-    -webkit-transform: scale(0.8);
-    transform: scale(0.8);
-    opacity: 0.5;
-  }
-}
-
 .custom-icon {
   vertical-align: middle;
   width: 30px;
@@ -157,6 +142,7 @@ nav .brand-logo {
   width: 100vw;
   height: 100vh;
   margin: 0;
+  border-radius: 0px;
   top: 0;
   left: 0;
   right: 0;
@@ -168,6 +154,7 @@ nav .brand-logo {
   transition: all 0.3s ease;
   position: relative;
   height: 500px;
+  border-radius: 5px;
   z-index: 1;
 }
 
@@ -187,4 +174,20 @@ nav .brand-logo {
 
 label {
   color: #212121;
+}
+
+.share-icons {
+  margin: 10px;
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  border-radius: 72px;
+}
+
+.share-links {
+  padding: 40px;
+}
+
+.modal {
+  border-radius: 5px;
 }
