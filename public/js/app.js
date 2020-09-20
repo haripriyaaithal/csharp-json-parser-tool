@@ -18,7 +18,7 @@ const generateGetters = document.querySelector("#generateGetters");
 
 document.addEventListener("DOMContentLoaded", function () {
   registerServiceWorker();
-  M.FormSelect.init(document.querySelectorAll("select"), {});
+  M.AutoInit();
   showLoader(false);
   applySettings();
   showButton(false, fullScreenExitButton);
@@ -78,6 +78,9 @@ const validateJSON = (json) => {
 };
 
 const copyToClipboard = (result) => {
+  if (result.innerText.length === 0) {
+    return;
+  }
   const range = document.createRange();
   window.getSelection().removeAllRanges();
   range.selectNode(result);
@@ -113,6 +116,7 @@ const saveSettings = () => {
 const applySettings = () => {
   let storedSettings = localStorage.getItem(LOCAL_STORAGE_SETTINGS_KEY);
   if (storedSettings === null) {
+    showElement(generateGetters.parentElement, !useNewtonSoft.checked);
     return;
   }
   storedSettings = JSON.parse(storedSettings);

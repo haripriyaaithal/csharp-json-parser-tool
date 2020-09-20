@@ -8,6 +8,8 @@
       <link rel="stylesheet" href="/css/style.css" />
       <link rel="icon" type="image/png" href="/images/logo.png">
       <link rel="manifest" href="/manifest.json" />
+      <meta name="description" content="Convert JSON data to C# classes with various settings like variable prefix, getter method types etc., that can be tweaked to match your coding style!">
+      <meta name="keywords" content="convert json to c# online, C# to json, csharp to json, deserialize json, parse json with C#, online json parser, newtonsoft json" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    </head>
    <body>
@@ -22,7 +24,11 @@
          </nav>
       </header>
       <main>
-         
+         <!-- <div class="row">
+            <div class="col l12 s12 center-align" style="padding-top: 20px;">
+               <img src="https://via.placeholder.com/1200x75?text=Contact+us+to+place+ads" />
+            </div>
+         </div> -->
          <div class="row">
             <div class="col l3 m12 s12">
                <div class="card-panel custom-card z-depth-2">
@@ -125,7 +131,7 @@
                         <a onclick="copyResultToClipboard()" class="right pointer"><i class="material-icons white-text" style="vertical-align: middle; padding-right: 16px;">content_copy</i></a>
                      </h5>
                   </div>
-                  <div class="scroll-view">
+                  <div class="scroll-view" style="height: 92%;">
                      <div class="loader" id="loader">
                         <span>{</span><span>}</span>
                      </div>
@@ -145,6 +151,104 @@
             </div>
          </div>
 
+         <div class="row">
+            <div class="col l2 s12">
+               <!-- <img src="https://via.placeholder.com/200x720?text=Contact+us+to+place+ads" /> -->
+            </div>
+            <div class="col l8 s12">
+               <div class="card darken-1">
+                  <div class="card-content">
+                     <h1 class="card-title" style="font-weight: bold !important; margin-top: 5px">Instructions to convert JSON object to C# code</h1>
+                     <div class="divider"></div>
+                     <p class="card-title" style="padding-top: 10px;"><strong>Step 0:</strong></p>
+                     <span>The keys which are present in the JSON object will be used to name variables,
+                        so name the keys accordingly.</span>
+                        
+                     <p class="card-title" style="padding-top: 10px;"><strong>Step 1:</strong></p>
+                     <ul class="browser-default">
+                        <li>Paste the JSON string in the input field and click on “Generate C# Classes” button.</li>
+                        <li>Once C# code is generated, it’ll be copied to clipboard automatically. First class will be named as Parent, you can rename it and use it in your project.</li>
+                     </ul>
+                     
+                      <p class="card-title" style="padding-top: 10px;"><strong>Step 2:</strong></p>
+                     <span>This website is a PWA (Progressive Web App). You can install this and open it directly from Launcher/Start menu.</span>
+
+                     <div class="row" style="padding-top: 20px">
+                        <div class="col l3 s12">
+                           <p>
+                              <strong>JSON input:</strong><br><br>
+                              {<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;"user": [<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "Admin",<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"age": 36<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;]<br>
+                              }
+                           </p>
+                        </div>
+                        <div class="col l6 s12">
+                           <p>
+                              <strong>Output with Newtonsoft:</strong><br><br>
+                              <span style="color: #2979CD">public</span>&nbsp;
+                              <span style="color: #2979CD">class</span>&nbsp;
+                              <span style="color: #229595">Parent</span>&nbsp;
+                              {<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;[JsonProperty(<span style="color: #CD8365">"</span><span style="color: #CD8365">user</span><span style="color: #CD8365">"</span>)]&nbsp;
+                              <span style="color: #2979CD">private</span>&nbsp;
+                              <span style="color: #229595">List</span>&lt;<span style="color: #229595">User</span>&gt;&nbsp;_userList;<br><br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">public</span>&nbsp;
+                              <span style="color: #229595">List</span>&lt;<span style="color: #229595">User</span>&gt;&nbsp;GetUserList()&nbsp;
+                              {<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">return</span>&nbsp;_userList;<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                              }
+                              <br><br>
+
+                              <span style="color: #2979CD">public</span>&nbsp;<span style="color: #2979CD">class</span>&nbsp;<span style="color: #229595">User</span>&nbsp;
+                              {<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;[JsonProperty(<span style="color: #CD8365">"</span><span style="color: #CD8365">name</span><span style="color: #CD8365">"</span>)]&nbsp;
+                              <span style="color: #2979CD">private</span>&nbsp;<span style="color: #229595"><span style="color: #2979CD">string</span></span>&nbsp;_name;<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;[JsonProperty(<span style="color: #CD8365">"</span><span style="color: #CD8365">age</span><span style="color: #CD8365">"</span>)]&nbsp;
+                              <span style="color: #2979CD">private</span>&nbsp;<span style="color: #229595"><span style="color: #2979CD">int</span></span>&nbsp;_age;<br><br>
+
+                              &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">public</span>&nbsp;<span style="color: #229595"><span style="color: #2979CD">string</span></span>&nbsp;GetName()&nbsp;
+                              {
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">return</span>&nbsp;_name;
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;}
+                              <br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">public</span>&nbsp;<span style="color: #229595"><span style="color: #2979CD">int</span></span>&nbsp;GetAge()&nbsp;
+                              {
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">return</span>&nbsp;_age;
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;}
+                              <br>}
+                           </p>
+                        </div>
+                        <div class="col l3 s12">
+                           <p>
+                              <strong>Output without Newtonsoft:</strong><br><br>
+                              [System.<span style="color: #229595">Serializable</span>]<br>
+                              <span style="color: #2979CD">public</span>&nbsp;<span style="color: #2979CD">class</span>&nbsp;<span style="color: #229595">Parent</span>&nbsp;
+                              {<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">public</span>&nbsp;<span style="color: #229595">List</span>&lt;<span style="color: #229595">User</span>&gt;&nbsp;user;
+                              <br>}<br><br>
+
+                              [System.<span style="color: #229595">Serializable</span>]<br>
+                              <span style="color: #2979CD">public</span>&nbsp;<span style="color: #2979CD">class</span>&nbsp;<span style="color: #229595">User</span>&nbsp;
+                              {<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">public</span>&nbsp;<span style="color: #229595"><span style="color: #2979CD">string</span></span>&nbsp;name;
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2979CD">public</span>&nbsp;<span style="color: #229595"><span style="color: #2979CD">int</span></span>&nbsp;age;
+                              <br>}
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col l2 s12">
+               <!-- <img src="https://via.placeholder.com/200x720?text=Contact+Us+to+place+ads" /> -->
+            </div>
+         </div>
       </main>
 
       <footer class="page-footer red lighten-1">
