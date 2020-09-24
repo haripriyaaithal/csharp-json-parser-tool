@@ -266,9 +266,10 @@ nav .brand-logo {
     transform: scale(0.8);
     opacity: 0.5;
   }
+}
 
 /* Share UI  */
-.share-icons {
+.circle-icons {
   margin: 10px;
   width: 72px;
   height: 72px;
@@ -276,7 +277,7 @@ nav .brand-logo {
   border-radius: 72px;
 }
 
-.share-links {
+.links {
   padding: 40px;
 }
 

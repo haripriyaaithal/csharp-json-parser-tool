@@ -87,7 +87,6 @@ const validateJSON = (json) => {
 };
 
 const getCSharpCode = (onClickSubmit = false) => {
-  saveSettings();
   if (input.value.length === 0) {
     result.innerHTML = "";
     showElement(csFileImage, true);
@@ -96,6 +95,7 @@ const getCSharpCode = (onClickSubmit = false) => {
     }
     return;
   }
+  saveSettings();
   showLoader(true);
   showElement(csFileImage, false);
 
@@ -141,7 +141,7 @@ const getCSharpCode = (onClickSubmit = false) => {
   }
 };
 
-const shouldUseNewtonSoft = () => {
+const withoutNewtonSoft = () => {
   const dropdownObj = M.FormSelect.getInstance(variablePrefix);
   Array.from(dropdownObj.el.options).forEach((option, index) => {
     if (option.value === "") {
@@ -186,7 +186,11 @@ const applySettings = () => {
 
   useNewtonSoft.checked = storedSettings.useNewtonSoft;
   generateGetters.checked = storedSettings.generateGetters;
-  shouldUseNewtonSoft();
+  if (!storedSettings.useNewtonSoft) {
+    withoutNewtonSoft();
+  } else {
+    showElement(generateGetters.parentElement, !storedSettings.useNewtonSoft);
+  }
 
   let selectedIndex = storedSettings.getAccessModifier;
   getAccessModifier.selectedIndex = selectedIndex;

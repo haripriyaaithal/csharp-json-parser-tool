@@ -1,4 +1,4 @@
-const CACHE_NAME = "cache-v2";
+const CACHE_NAME = "cache-v3";
 
 const assets = [
   "/",
@@ -6,11 +6,20 @@ const assets = [
   "/offline.html",
   "/privacy-policy.html",
   "/js/app.js",
+  "/js/common.js",
+  "/js/firebase-data.js",
   "/css/style.css",
   "/images/csharp.png",
   "/images/json.png",
   "/images/settings.png",
   "/images/logo.png",
+  "/images/f.png",
+  "/images/teams.png",
+  "/images/t.png",
+  "/images/copy.png",
+  "/images/cs-file.png",
+  "/images/json-file.png",
+  "/images/favicon.png",
   "https://fonts.googleapis.com/icon?family=Material+Icons",
   "https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
   "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css",
