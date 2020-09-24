@@ -220,6 +220,12 @@ document.addEventListener("DOMContentLoaded", () => {
   showButton(false, fullScreenExitButton);
 });
 
+document.onkeydown = (event) => {
+  if (event.key === "Escape") {
+    enableFullscreen(false);
+  }
+};
+
 document.querySelector("#submit").addEventListener("click", () => {
   getCSharpCode(true);
 });
