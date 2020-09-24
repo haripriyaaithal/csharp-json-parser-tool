@@ -252,6 +252,21 @@ nav .brand-logo {
   animation-delay: 0.4s;
 }
 
+@-webkit-keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
 /* Share UI  */
 .share-icons {
   margin: 10px;
