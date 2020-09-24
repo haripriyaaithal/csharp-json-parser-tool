@@ -9,7 +9,6 @@
       <link rel="icon" type="image/png" href="/images/logo.png">
       <link rel="manifest" href="/manifest.json" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
    </head>
    <body>
       <header>
@@ -21,25 +20,17 @@
                </a>
                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                <div class="right hide-on-med-and-down center card-title-text">
-                  
-                  <a data-target="shareModal" class="modal-trigger pointer right">
-                           <i class="material-icons white-text nav-icons tooltipped" data-position="bottom" data-tooltip="Share">share</i>
-                        </a>
-                     <a onclick="enableDarkTheme(false)" id="darkModeDisableButton" class="pointer right">
-                        <i class="material-icons white-text nav-icons tooltipped" data-position="bottom" data-tooltip="Disable Dark Mode">brightness_high</i>
-                     </a>
-                  
-                     <a onclick="enableDarkTheme(true)" id="darkModeEnableButton" class="pointer right">
-                        <i class="material-icons white-text nav-icons tooltipped" data-position="bottom" data-tooltip="Enable Dark Mode">brightness_4</i>
-                     </a>
+                  <a onclick="enableDarkTheme(false)" id="darkModeDisableButton" class="pointer right">
+                     <i class="material-icons white-text nav-icons tooltipped" data-position="bottom" data-tooltip="Disable Dark Mode">brightness_high</i>
+                  </a>
+               
+                  <a onclick="enableDarkTheme(true)" id="darkModeEnableButton" class="pointer right">
+                     <i class="material-icons white-text nav-icons tooltipped" data-position="bottom" data-tooltip="Enable Dark Mode">brightness_4</i>
+                  </a>
                </div>
             </div>
          </nav>
          <ul class="sidenav" id="mobile-demo">
-            <li><a data-target="shareModal" class="modal-trigger pointer">
-               <i class="material-icons">share</i>
-               Share
-            </a>
             <li id="sidenavDarkModeDisableButton">
                <a onclick="enableDarkTheme(false)"  class="pointer">
                   <i class="material-icons">brightness_high</i>
@@ -58,38 +49,6 @@
          <div class="center">
           <h3>Page not found ☹️</h3>
             <a href="/" class="waves-effect waves-light btn blue darken-2"><i class="material-icons left">home</i>Go to homepage</a>
-         </div>
-         <div id="shareModal" class="modal" style="overflow: hidden;">
-            <div class="modal-content">
-               <div class="blue darken-2 card-title-custom z-depth-2 white-text" style="margin-top: -40px">
-                  <h5 class="center" style="padding-top: 15px;">Share with your colleagues/friends</h5>
-                  <a href="#!" class="modal-close waves-effect right white-text" style="margin-top: -30px; margin-right: 15px;"><i class="material-icons">close</i></a>
-               </div>
-               <div class="row center" style="margin-top: 60px">
-                  <h6 class="center" id="url">https://csharp-json-parser.online</h6>
-                  <div class="share-links">
-                     <div class="col l2 s6 offset-l2">
-                        <img src="images/teams.png" class="share-icons teams-share-button z-depth-5 tooltipped" 
-                           data-position="bottom" 
-                           data-tooltip="Share using Microsoft Teams"
-                           data-href="https://csharp-json-parser.online/">
-                     </div>
-                     <div class="col l2 s6">
-                        <a target="_blank" href="https://twitter.com/intent/tweet?text=Checkout%20https%3A%2F%2Fcsharp-json-parser.online%20This%20web%20app%20will%20help%20you%20convert%20JSON%20object%20to%20C%23%20classes.%20%23dotNET%20%23dotnet%20%23dotnetcore%20%23microsoft%20%23developer%20%23windows">
-                        <img src="images/twitter.png" class="share-icons z-depth-5 tooltipped" data-position="bottom" data-tooltip="Share using Twitter">
-                     </a>
-                     </div>
-                     <div class="col l2 s6">
-                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcsharp-json-parser.online/" class="fb-xfbml-parse-ignore">
-                        <img src="images/fb.png" class="share-icons z-depth-5 tooltipped" data-href="https://csharp-json-parser.online/" data-layout="button" data-size="small" data-position="bottom" data-tooltip="Share using Facebook">
-                     </a>
-                     </div>
-                     <div class="col l2 s6">
-                        <img onclick="copyUrlToClipboard()" src="images/copy.png" class="share-icons z-depth-5 tooltipped" data-position="bottom" data-tooltip="Copy URL to clipboard">
-                     </div>
-                  </div>
-               </div>
-            </div>
          </div>
       </main>
 
