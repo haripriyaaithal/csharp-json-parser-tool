@@ -14,13 +14,40 @@
    <body>
       <header>
          <nav>
-            <div class="nav-wrapper red lighten-1 z-depth-2">
+            <div class="nav-wrapper z-depth-2">
                <a href="/" class="brand-logo center">
-                  <img src="/images/logo.png" class="nav-icon" alt="Main logo"/>
-                   C# - JSON Parser
-                </a>
+                  <img src="/images/logo.png" class="main-icon" alt="Main logo"/> 
+                  C# - JSON Parser
+               </a>
+               <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+               <div class="right hide-on-med-and-down center card-title-text">
+                  <a onclick="enableDarkTheme(false)" id="darkModeDisableButton" class="pointer right">
+                     <i class="material-icons white-text nav-icons tooltipped" data-position="bottom" data-tooltip="Disable Dark Mode">brightness_high</i>
+                  </a>
+                  <a onclick="enableDarkTheme(true)" id="darkModeEnableButton" class="pointer right">
+                     <i class="material-icons white-text nav-icons tooltipped" data-position="bottom" data-tooltip="Enable Dark Mode">brightness_4</i>
+                  </a>
+               </div>
             </div>
          </nav>
+         <ul class="sidenav" id="mobile-demo">
+            <li><a data-target="shareModal" class="modal-trigger pointer">
+               <i class="material-icons">share</i>
+               Share
+            </a>
+            <li id="sidenavDarkModeDisableButton">
+               <a onclick="enableDarkTheme(false)"  class="pointer">
+                  <i class="material-icons">brightness_high</i>
+                  Disable Dark Mode
+               </a>
+            </li>
+            <li id="sidenavDarkModeEnableButton">
+               <a onclick="enableDarkTheme(true)"  class="pointer">
+                  <i class="material-icons">brightness_4</i>
+                  Enable Dark Mode
+               </a>
+            </li>
+         </ul>
       </header>
       <main>
         <div class="center">
@@ -29,13 +56,13 @@
         </div>
       </main>
 
-      <footer class="page-footer red lighten-1">
+     <footer class="page-footer">
          <div class="container">
             <div class="row">
                <div class="col l6 s12">
                   <h5 class="white-text">
                      <a href="/" class="brand-logo center white-text">
-                        <img src="/images/logo.png" class="nav-icon" alt="Main logo"/>
+                        <img src="/images/logo.png" class="main-icon" alt="Main logo"/>
                         C# - JSON Parser
                      </a>
                   </h5>
@@ -61,6 +88,7 @@
             </div>
          </div>
       </footer>
+      <script src="/js/common.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
    </body>
 </html>
