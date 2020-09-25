@@ -38,11 +38,8 @@ const enableDarkTheme = (enable) => {
 document.addEventListener("DOMContentLoaded", () => {
   let shouldEnableDarkTheme;
   const osDarkTheme = window.matchMedia("(prefers-color-scheme: dark)");
-  shouldEnableDarkTheme = osDarkTheme.matches ? true : false;
-  shouldEnableDarkTheme =
-    shouldEnableDarkTheme === true
-      ? shouldEnableDarkTheme
-      : localStorage.getItem(LOCAL_STORAGE_DARK_MODE_SETTINGS_KEY);
+  const darkThemePreference = localStorage.getItem(LOCAL_STORAGE_DARK_MODE_SETTINGS_KEY);
+  shouldEnableDarkTheme = darkThemePreference === null ? osDarkTheme.matches : darkThemePreference
 
   enableDarkTheme(shouldEnableDarkTheme);
   document.body.style.display = "flex";
